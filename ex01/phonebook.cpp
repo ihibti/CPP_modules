@@ -1,5 +1,9 @@
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
+#include <numeric>
+#include <sstream>
 #include <string>
 
 using std::string;
@@ -17,6 +21,69 @@ int	ft_isonlynumber(string str)
 	}
 	return (1);
 }
+
+std::string get_line()
+{
+	char	c;
+
+	std::string line;
+	while (std::cin.get(c))
+	{
+		if (c == '\n')
+		{
+			break ;
+		}
+		line += c;
+	}
+	return (line);
+}
+
+int	string_to_int(const std::string &s)
+{
+	int	result;
+
+	std::stringstream ss(s);
+	ss >> result;
+	return (result);
+}
+
+std::string trim(const string &str)
+{
+	size_t	first;
+	size_t	last;
+
+	first = str.find_first_not_of(' ');
+	if (first == string::npos)
+	{
+		return ("");
+	}
+	last = str.find_last_not_of(' ');
+	return (str.substr(first, (last - first + 1)));
+}
+
+string	ask_input(string message, bool number)
+{
+	string	result;
+
+	std::cout << message;
+	result = get_line();
+	if (number)
+	{
+		while (result.empty() || !trim(result)[0] || !ft_isonlynumber(result))
+		{
+			std::cout << message;
+			result = get_line();
+		}
+		return (result);
+	}
+	while (result.empty() || !trim(result)[0])
+	{
+		std::cout << message;
+		result = get_line();
+	}
+	return (result);
+}
+
 class contact
 {
   public:
@@ -96,7 +163,7 @@ class PhoneBook
 		return (-1);
 	}
 	int add_contact(string name, string lastname, string nickname,
-			string question, int number)
+		string question, int number)
 	{
 		int i;
 		if (this->nb_contacts < 8)
@@ -125,7 +192,7 @@ class PhoneBook
 			if (j == i)
 				continue ;
 			repertory[j].set_get_age(true, repertory[j].set_get_age(false, 0)
-					+ 1);
+				+ 1);
 		}
 		return (0);
 	}
@@ -137,44 +204,12 @@ class PhoneBook
 		string nick;
 		string number;
 
-		std::cout << "nom du contact:\n";
-		std::cin >> fn;
-		while (fn.empty() || std::all_of(fn.begin(), fn.end(), isspace))
-		{
-			std::cout << "nom du contact:\n";
-			std::cin >> fn;
-		}
-		std::cout << "nom de famille du contact:\n";
-		std::cin >> ln;
-		while (ln.empty() || std::all_of(ln.begin(), ln.end(), isspace))
-		{
-			std::cout << "nom de famille du contact:\n";
-			std::cin >> ln;
-		}
-		std::cout << "question du contact:\n";
-		std::cin >> quest;
-		while (quest.empty() || std::all_of(quest.begin(), quest.end(),
-				isspace))
-		{
-			std::cout << "question du contact:\n";
-			std::cin >> quest;
-		}
-		std::cout << "surnom du contact:\n";
-		std::cin >> nick;
-		while (nick.empty() || std::all_of(nick.begin(), nick.end(), isspace))
-		{
-			std::cout << "surnom du contact:\n";
-			std::cin >> nick;
-		}
-		std::cout << "numero du contact:\n";
-		std::cin >> number;
-		while (number.empty() || std::all_of(number.begin(), number.end(),
-				isspace) || !ft_isonlynumber(number))
-		{
-			std::cout << "numero du contact:\n";
-			std::cin >> number;
-		}
-		add_contact(fn, ln, nick, quest, std::stoi(number));
+		fn = ask_input("firstname :\n", false);
+		ln = ask_input("lastname:\n", false);
+		quest = ask_input("question:\n", false);
+		nick = ask_input("nickname:\n", false);
+		number = ask_input("number:\n", true);
+		add_contact(fn, ln, nick, quest, string_to_int(number));
 	}
 	void print_string(string str)
 	{
@@ -209,11 +244,11 @@ class PhoneBook
 		int i;
 		i = -1;
 		if (nb_contacts < 1)
-			return (std::cout << "pas encore de contacts\n", 0);
+			return (std::cout << "no contacts yet\n", 0);
 		display();
-		while (i < 0 || i > nb_contacts)
+		while (i < 0 || i >= nb_contacts)
 		{
-			std::cout << "index du contact que vous recherchez:\n";
+			std::cout << "index of contact u're looking for :\n";
 			std::cin >> i;
 		}
 		std::cout << repertory[i].get_firstname() << "\n";
@@ -230,8 +265,9 @@ class PhoneBook
 		string request;
 		while (true)
 		{
-			std::cout << "commmandes disponibles EXIT,SEARCH,ADD\n";
+			std::cout << "available commands EXIT,SEARCH,ADD\n";
 			std::cin >> request;
+			std::cin.ignore();
 			if (!request.compare("EXIT"))
 				return ;
 			if (!request.compare("SEARCH"))
