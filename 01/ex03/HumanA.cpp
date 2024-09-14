@@ -2,7 +2,7 @@
 
 void HumanA::attack()
 {
-	std::cout << this->name << " attacks with their " << this->_weapon->getType();
+	std::cout << this->name << " attacks with their " << weapon.getType();
 	std::cout << std::endl;
 }
 
@@ -13,11 +13,11 @@ std::string HumanA::get_name()
 
 void HumanA::set_weapon(Weapon &_weapon)
 {
-	this->_weapon = _weapon;
+	this->weapon = _weapon;
 }
 
-HumanA::HumanA(std::string _name, Weapon *weapon) : _weapon(_weapon),
-	name(_name){};
+HumanA::HumanA(const std::string &_name, Weapon &_weapon) : name(_name),
+	weapon(_weapon){};
 HumanA::~HumanA()
 {
 	std::cout << "mort pour " << this->name << std::endl;
