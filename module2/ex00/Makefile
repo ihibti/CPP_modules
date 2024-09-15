@@ -1,9 +1,9 @@
-NAME = HarlFilter 
+NAME = fixed_point
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Harl.cpp
+SRC = main.cpp fixed.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
