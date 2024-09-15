@@ -4,8 +4,11 @@
 # include <fstream>
 # include <iomanip>
 # include <iostream>
-# include <iostream>
 # include <string>
-# include <string>
+
+bool	new_file(std::string &infile, std::string &outfile, std::string &ori,
+			std::string &replacement);
+std::string new_replaced(std::string &line, std::string &ori,
+	std::string &replacement);
 
 #endif
