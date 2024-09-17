@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:23 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/16 13:55:01 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/17 10:37:45 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,33 @@ class Fixed
 	static const int m_fractionalBits;
 
   public:
+	//constructeurs
 	Fixed();
 	Fixed(const int raw);
 	Fixed(const float raw);
 	Fixed(const Fixed &other);
 	~Fixed();
-	int toInt(void)const;
-	float toFloat(void)const;
+	Fixed &operator=(const Fixed &other);
+	//member functions
+	int toInt(void) const;
+	float toFloat(void) const;
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
-	Fixed &operator=(const Fixed &other);
+	// flux ouptut
 	friend std::ostream &operator<<(std::ostream &fd, const Fixed &fixed);
+	// comparison operators
+	bool operator<(const Fixed &other) const;
+	bool operator>(const Fixed &other) const;
+	bool operator<=(const Fixed &other) const;
+	bool operator>=(const Fixed &other) const;
+	bool operator==(const Fixed &other) const;
+	bool operator!=(const Fixed &other) const;
+	//arithmetic operators
+	Fixed operator+(const Fixed &other) const;
+	Fixed operator-(const Fixed &other) const;
+	Fixed operator*(const Fixed &other) const;
+	Fixed operator/(const Fixed &other) const;
+    
 };
 
 #endif
