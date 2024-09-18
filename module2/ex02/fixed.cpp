@@ -6,13 +6,11 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/16 13:48:32 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:19:08 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fixed.hpp"
-
-const int Fixed::m_fractionalBits = 8;
 
 Fixed::Fixed()
 {
@@ -75,4 +73,67 @@ std::ostream &operator<<(std::ostream &fd, const Fixed &fixed)
 {
 	fd << fixed.toFloat();
 	return (fd);
+}
+
+bool Fixed::operator!=(const Fixed &other) const
+{
+	return (this->getRawBits() != other->getRawBits());
+}
+
+bool Fixed::operator<=(const Fixed &other) const
+{
+	return (this->getRawBits() <= other->getRawBits());
+}
+
+bool Fixed::operator>=(const Fixed &other) const
+{
+	return (this->getRawBits() >= other->getRawBits());
+}
+
+bool Fixed::operator==(const Fixed &other) const
+{
+	return (this->getRawBits() == other->getRawBits());
+}
+
+bool Fixed::operator<(const Fixed &other) const
+{
+	return (this->getRawBits() < other->getRawBits());
+}
+
+bool Fixed::operator>(const Fixed &other) const
+{
+	return (this->getRawBits() > other->getRawBits());
+}
+
+bool Fixed::operator==(const Fixed &other) const
+{
+	return (this->getRawBits() == other->getRawBits());
+}
+
+Fixed Fixed::operator+(const Fixed &other) const
+{
+	Fixed ret;
+
+	ret.m_fixedValue = this->m_fixedValue + other.m_fixedValue;
+	return (ret);
+}
+
+Fixed Fixed::operator-(const Fixed &other) const
+{
+	Fixed ret;
+
+	ret.m_fixedValue = this->m_fixedValue - other->m_fixedValue;
+	return (ret);
+}
+
+Fixed Fixed::operator*(const Fixed &other) const
+{
+	int64_t result = static_cast<int64_t>(value) * other.value;
+	return (Fixed(static_cast<int32_t>(result >> fractionalBits)));
+}
+
+Fixed Fixed::operator/(const Fixed &other) const
+{
+	int64_t temp = static_cast<int64_t>(this->m_fixedValue) << fractionalBits;
+	return (Fixed(static_cast<int32_t>(temp / other.m_fixedValue)));
 }
