@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:34 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/19 11:32:59 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/19 12:02:31 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	main(void)
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
 	std::cout << Fixed::max(a, b) << std::endl;
-    std::cout << a << std::endl;
 	return (0);
 }
