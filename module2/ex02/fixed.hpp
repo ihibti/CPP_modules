@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:23 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/19 11:39:29 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:59:59 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ class Fixed
 	Fixed(const int raw);
 	Fixed(const float raw);
 	Fixed(const Fixed &other);
-	Fixed fromRawValue(int raw);
 	~Fixed();
 	Fixed &operator=(const Fixed &other);
 	// member functions
