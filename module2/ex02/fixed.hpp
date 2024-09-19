@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:23 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/18 17:02:52 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:39:29 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <cmath>
 # include <iomanip>
 # include <iostream>
+# include <stdint.h>
 # include <string>
 
 class Fixed
@@ -31,10 +32,11 @@ class Fixed
 	Fixed(const int raw);
 	Fixed(const float raw);
 	Fixed(const Fixed &other);
+	Fixed fromRawValue(int raw);
 	~Fixed();
 	Fixed &operator=(const Fixed &other);
 	// member functions
-	int32_t getRawBits(void) const;
+	int getRawBits(void) const;
 	void setRawBits(int const raw);
 	int toInt(void) const;
 	float toFloat(void) const;

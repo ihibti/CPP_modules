@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/18 17:42:13 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:57:18 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,21 @@
 Fixed::Fixed()
 {
 	m_fixedValue = 0;
-	std::cout << "Default constructor called\n";
 }
 
 Fixed::Fixed(const Fixed &other)
 {
 	m_fixedValue = other.m_fixedValue;
-	std::cout << "Copy constructor called\n";
 }
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called\n";
 }
 Fixed &Fixed::operator=(const Fixed &other)
 {
 	if (this != &other)
 	{
 		this->m_fixedValue = other.m_fixedValue;
-		std::cout << "Copy assignment operator called\n";
 	}
 	return (*this);
 }
@@ -50,14 +46,12 @@ int Fixed::getRawBits() const
 
 Fixed::Fixed(const int raw)
 {
-	m_fixedValue = raw << m_fractionalBits;
-	std::cout << "int constructor called\n";
+	m_fixedValue = raw;
 }
 
 Fixed::Fixed(const float raw)
 {
 	m_fixedValue = static_cast<int>(roundf(raw * (1 << m_fractionalBits)));
-	std::cout << "Float constructor called\n";
 }
 
 int Fixed::toInt() const
@@ -69,6 +63,7 @@ float Fixed::toFloat() const
 {
 	return (static_cast<float>(m_fixedValue) / (1 << m_fractionalBits));
 }
+
 std::ostream &operator<<(std::ostream &fd, const Fixed &fixed)
 {
 	fd << fixed.toFloat();
@@ -77,37 +72,32 @@ std::ostream &operator<<(std::ostream &fd, const Fixed &fixed)
 
 bool Fixed::operator!=(const Fixed &other) const
 {
-	return (this->getRawBits() != other->getRawBits());
+	return (this->getRawBits() != other.getRawBits());
 }
 
 bool Fixed::operator<=(const Fixed &other) const
 {
-	return (this->getRawBits() <= other->getRawBits());
+	return (this->getRawBits() <= other.getRawBits());
 }
 
 bool Fixed::operator>=(const Fixed &other) const
 {
-	return (this->getRawBits() >= other->getRawBits());
+	return (this->getRawBits() >= other.getRawBits());
 }
 
 bool Fixed::operator==(const Fixed &other) const
 {
-	return (this->getRawBits() == other->getRawBits());
+	return (this->getRawBits() == other.getRawBits());
 }
 
 bool Fixed::operator<(const Fixed &other) const
 {
-	return (this->getRawBits() < other->getRawBits());
+	return (this->getRawBits() < other.getRawBits());
 }
 
 bool Fixed::operator>(const Fixed &other) const
 {
-	return (this->getRawBits() > other->getRawBits());
-}
-
-bool Fixed::operator==(const Fixed &other) const
-{
-	return (this->getRawBits() == other->getRawBits());
+	return (this->getRawBits() > other.getRawBits());
 }
 
 Fixed Fixed::operator+(const Fixed &other) const
@@ -122,20 +112,24 @@ Fixed Fixed::operator-(const Fixed &other) const
 {
 	Fixed ret;
 
-	ret.m_fixedValue = this->m_fixedValue - other->m_fixedValue;
+	ret.m_fixedValue = this->m_fixedValue - other.m_fixedValue;
 	return (ret);
 }
 
 Fixed Fixed::operator*(const Fixed &other) const
 {
-	int64_t result = static_cast<int64_t>(value) * other.value;
-	return (Fixed(static_cast<int32_t>(result >> fractionalBits)));
+	int resultValue = (m_fixedValue * other.m_fixedValue);
+	return (Fixed(resultValue));
 }
 
 Fixed Fixed::operator/(const Fixed &other) const
 {
-	int64_t temp = static_cast<int64_t>(this->m_fixedValue) << fractionalBits;
-	return (Fixed(static_cast<int32_t>(temp / other.m_fixedValue)));
+	if (other.m_fixedValue == 0)
+	{
+		std::cerr << "Division by zero"; 
+	}
+	int resultValue = (m_fixedValue ) / other.m_fixedValue;
+	return (Fixed(resultValue));
 }
 
 Fixed &Fixed::min(Fixed &a, Fixed &b)
@@ -162,4 +156,34 @@ const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
 	if (a >= b)
 		return (a);
 	return (b);
+}
+
+Fixed &Fixed::operator++()
+{
+	m_fixedValue += epsilon;
+	return (*this);
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed	temp;
+
+	temp = *this;
+	m_fixedValue += epsilon;
+	return (temp);
+}
+
+Fixed &Fixed::operator--()
+{
+	m_fixedValue -= epsilon;
+	return (*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed	temp;
+
+	temp = *this;
+	m_fixedValue -= epsilon;
+	return (temp);
 }
