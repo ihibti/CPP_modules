@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/26 15:52:59 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/09/29 00:35:49 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ ClapTrap &ClapTrap::operator=(ClapTrap &&other) noexcept
 {
 	if (this != &other)
 	{
-		// Move other's members to this object
+        this->attackDamage = other.attackDamage;
 	}
 	return (*this);
 }
