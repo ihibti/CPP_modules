@@ -6,13 +6,12 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/09/30 11:13:55 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/10/01 12:35:38 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-// Default constructor implementation
 ClapTrap::ClapTrap()
 {
 	this->name = "john";
@@ -30,12 +29,10 @@ ClapTrap::ClapTrap(const std::string &n_name)
 	std::cout << "constructor called\n";
 }
 
-// Copy constructor implementation
 ClapTrap::ClapTrap(const ClapTrap &other) : hitpoints(other.hitpoints),
 	energypoints(other.energypoints), attackDamage(other.attackDamage),
 	name(other.name){};
 
-// Copy assignment operator implementation
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
 	if (this != &other)

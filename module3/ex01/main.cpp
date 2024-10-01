@@ -1,10 +1,9 @@
-#include"ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
-int main()
+int	main(void)
 {
-    ClapTrap jimmy("jimmy");
-    ClapTrap brandon("brandon");
-
-    jimmy.attack("brandon");
-    brandon.takeDamage(jimmy.get_ad());
+	ScavTrap scav("Scavvy");
+	scav.attack("enemy");
+	scav.guardGate();
+	return (0);
 }
