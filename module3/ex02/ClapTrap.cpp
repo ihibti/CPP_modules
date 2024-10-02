@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/10/02 11:24:33 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/10/02 11:22:31 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "ClapTrap " << this->name << " has been destructed\n";
+	std::cout << this->name << " has been destructed\n";
 }
 
 int ClapTrap::get_ad()

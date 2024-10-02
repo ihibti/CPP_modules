@@ -6,7 +6,7 @@
 /*   By: ihibti <ihibti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:05:11 by ihibti            #+#    #+#             */
-/*   Updated: 2024/10/01 12:35:38 by ihibti           ###   ########.fr       */
+/*   Updated: 2024/10/02 11:23:59 by ihibti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ ClapTrap::ClapTrap()
 	this->attackDamage = 0;
 	this->hitpoints = 10;
 	this->energypoints = 10;
-	std::cout << "default constructor called\n";
+	std::cout << " default constructor called\n";
 }
 ClapTrap::ClapTrap(const std::string &n_name)
 {
@@ -26,7 +26,7 @@ ClapTrap::ClapTrap(const std::string &n_name)
 	this->attackDamage = 0;
 	this->hitpoints = 10;
 	this->energypoints = 10;
-	std::cout << "constructor called\n";
+	std::cout << " constructor called\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other) : hitpoints(other.hitpoints),
@@ -88,7 +88,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 	hitpoints -= amount;
 	if (hitpoints < 0)
 		hitpoints = 0;
-	std::cout << name << "now has " << hitpoints << " hitpoints !\n";
+	std::cout << name << " now has " << hitpoints << " hitpoints !\n";
 }
 void ClapTrap::beRepaired(unsigned int amount)
 {
@@ -99,7 +99,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << this->name << " has been destructed\n";
+	std::cout << "ClapTrap " << this->name << " has been destructed\n";
 }
 
 int ClapTrap::get_ad()
