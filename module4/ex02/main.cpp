@@ -18,6 +18,11 @@ int main() {
     for (int i = 0; i < 10; ++i) {
         delete animals[i];
     }
+    /*
+    comment a enlever pour verifier que la classe est bien abstraite
+    Animal test;
+    test.makeSound();
+    */
 
     return 0;
 }
