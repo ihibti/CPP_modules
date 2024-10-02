@@ -1,9 +1,9 @@
-NAME = ClapTrap
+NAME = ZOO
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp ClapTrap.cpp 
+SRC = Animal.cpp main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
