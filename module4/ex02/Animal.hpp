@@ -47,4 +47,6 @@ class Cat : public Animal
 	Brain *brain;
 };
 
+
+
 #endif
