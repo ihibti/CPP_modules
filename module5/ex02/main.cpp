@@ -14,12 +14,13 @@ int main() {
         std::cout << bob << std::endl;
         std::cout << alice << std::endl;
 
-        // Test ShrubberyCreationForm
         ShrubberyCreationForm shrubbery("home");
         std::cout << shrubbery << std::endl;
 
         bob.signForm(shrubbery);
-        bob.executeForm(shrubbery);  // Bob should be able to execute this
+        bob.executeForm(shrubbery); 
+        bob.executeForm(shrubbery);
+         // Bob should be able to execute this
 
         // Test RobotomyRequestForm
         RobotomyRequestForm robotomy("robot");
