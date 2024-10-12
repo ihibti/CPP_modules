@@ -3,16 +3,16 @@
 bool	new_file(std::string &infile, std::string &outfile, std::string &ori,
 		std::string &replacement)
 {
-	if (infile.empty() || ori.empty() || replacement.empty())
-		return (std::cerr << "erreur un des parametres est vide\n", false);
+	if (infile.empty())
+		return (std::cerr << "error filename is empty\n", false);
 	std::ifstream lecture(infile.c_str());
 	if (!lecture.is_open())
 	{
 		std::cerr << "erreur opening file\n";
 		return (false);
 	}
-	std::ofstream writing(outfile.c_str());
 	std::string line;
+	std::ofstream writing(outfile.c_str());
 	if (!writing.is_open())
 	{
 		lecture.close();
@@ -33,6 +33,9 @@ std::string new_replaced(std::string &line, std::string &ori,
 {
 	std::size_t pos;
 	std::string ret;
+	if (ori.empty())
+		return (line);
+
 	ret = line;
 	pos = line.find(ori, 0);
 	while (pos != std::string::npos)

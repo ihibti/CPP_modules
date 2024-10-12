@@ -10,7 +10,6 @@ int	main(int argc, char *argv[])
 		std::cerr << "Usage: " << argv[0] << " <filename> <s1> <s2>" << std::endl;
 		return (1);
 	}
-
 	std::string inputFilename = argv[1];
 	std::string outputFilename = inputFilename + ".replace";
 	std::string s1 = argv[2];
@@ -18,7 +17,7 @@ int	main(int argc, char *argv[])
 
 	if (new_file(inputFilename, outputFilename, s1, s2))
 	{
-		std::cout << outputFilename << "created with success" << std::endl;
+		std::cout << outputFilename << " created with success" << std::endl;
 		return (0);
 	}
 	else
