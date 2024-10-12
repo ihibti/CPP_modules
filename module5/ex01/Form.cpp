@@ -52,7 +52,7 @@ void Form::checkGrade(int grade) const
 	{
 		throw GradeTooHighException();
 	}
-	else if (grade > 150)
+	if (grade > 150)
 	{
 		throw GradeTooLowException();
 	}
@@ -62,10 +62,15 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade() > _gradeToSign)
 	{
-		throw GradeTooLowException();
+		throw GradeTooHighException();
 	}
 	_isSigned = true;
 }
+// pas besoin de mettre une exception ici mais vu que
+// c est le theme du module au lieu d ecrire que
+// la note du bureaucrat est trop low
+// je vais plutot dire que le form est trop haut
+// question de perspective
 
 const char *Form::GradeTooHighException::what() const throw()
 {
