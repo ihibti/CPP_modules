@@ -24,6 +24,19 @@ Brain &Brain::operator=(const Brain &other)
 	return (*this);
 }
 
+void Brain::setIdeas(const std::string &idea, int index)
+{
+    if (index >= 0 && index < 100)
+        this->ideas[index] = idea;
+}
+
+std::string Brain::getIdeas(int index) const
+{
+    if (index >= 0 && index < 100)
+        return this->ideas[index];
+    return "";
+}
+
 Brain::~Brain()
 {
 	std::cout << "Brain destroyed\n";

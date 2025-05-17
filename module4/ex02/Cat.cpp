@@ -28,6 +28,10 @@ Cat::~Cat()
 
 	std::cout << "Cat destroyed\n";
 }
+Brain *Cat::getBrain() const
+{
+    return brain;
+}
 
 void Cat::makeSound() const
 {

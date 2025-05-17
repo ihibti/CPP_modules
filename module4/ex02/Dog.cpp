@@ -33,3 +33,14 @@ void Dog::makeSound() const
 {
 	std::cout << "Bark!\n";
 }
+
+Brain *Dog::getBrain() const
+{
+    return brain;
+}
+void Dog::setBrain(Brain *newBrain)
+{
+    if (brain != nullptr)
+        delete brain;
+    brain = newBrain;
+}

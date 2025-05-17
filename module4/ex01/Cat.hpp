@@ -10,6 +10,7 @@ class Cat : public Animal
 	Cat();
 	Cat(const Cat &other);
 	Cat &operator=(const Cat &other);
+    Brain *getBrain() const;
 	virtual ~Cat();
 	virtual void makeSound() const;
 

@@ -22,6 +22,11 @@ Dog &Dog::operator=(const Dog &other)
 	return (*this);
 }
 
+Brain *Dog::getBrain() const
+{
+    return brain;
+}
+
 Dog::~Dog()
 {
 	delete	brain;

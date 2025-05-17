@@ -11,6 +11,8 @@ class Dog : public Animal
     Dog &operator=(const Dog &other);
     virtual void makeSound() const;
     virtual ~Dog();
+    Brain *getBrain() const ;
+    void setBrain(Brain *newBrain) { brain = newBrain; }
 
   private:
     Brain *brain;

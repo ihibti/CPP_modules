@@ -3,7 +3,7 @@ NAME = ZOO
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = Animal.cpp main.cpp cat.cpp dog.cpp
+SRC = Animal.cpp main.cpp cat.cpp dog.cpp WrongAnimal.cpp WrongCat.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
