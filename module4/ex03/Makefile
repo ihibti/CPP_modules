@@ -3,7 +3,8 @@ NAME = materia
 CXX = clang++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = AMateria.cpp main.cpp
+SRC = AMateria.cpp main.cpp  Character.cpp Ice.cpp Cure.cpp \
+	  MateriaSource.cpp 
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
