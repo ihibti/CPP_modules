@@ -20,28 +20,8 @@ class Animal
 	std::string type;
 };
 
-class Dog : public Animal
-{
-  public:
-	Dog();
-	Dog(const Dog &other);
-	Dog &operator=(const Dog &other);
-	virtual void makeSound() const;
-	virtual ~Dog();
 
-  private:
-};
 
-class Cat : public Animal
-{
-  public:
-	Cat();
-	Cat(const Cat &other);
-	Cat &operator=(const Cat &other);
-	virtual void makeSound() const;
-	virtual ~Cat();
 
-  private:
-};
 
 #endif
