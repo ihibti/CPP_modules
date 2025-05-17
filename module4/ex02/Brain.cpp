@@ -28,3 +28,5 @@ Brain::~Brain()
 {
 	std::cout << "Brain destroyed\n";
 }
+
+
