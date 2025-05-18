@@ -9,9 +9,8 @@
 int	main(void)
 {
 
-    // Test 1: MateriaSource learning and creating
+    // Test de la classe MateriaSource
 
-    std::cout << "Test 1: MateriaSource learning and creating" << std::endl;
     IMateriaSource* src = new MateriaSource();
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());
@@ -34,12 +33,12 @@ int	main(void)
     alice->equip(src->createMateria("cure"));
     alice->equip(&icetemp); // Should not equip
 
-    // Test 4: Use Materias
+    // Test 4: utiliser les  Materias
     ICharacter* bob = new Character("Bob");
     for (int i = 0; i < 4; ++i)
         alice->use(i, *bob);
 
-    // Test 5: Unequip and use
+    // Test 5: desequiper et essayer d utiliser quand meme
     alice->unequip(1);
     alice->use(1, *bob); // Should do nothing
 

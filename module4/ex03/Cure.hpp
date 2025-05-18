@@ -5,6 +5,8 @@
 
 class Cure : public AMateria {
 public:
+Cure(const Cure& other);
+Cure& operator=(const Cure& other);
     Cure();
     virtual ~Cure();
     virtual AMateria* clone() const;
