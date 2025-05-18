@@ -56,12 +56,21 @@ void Character::equip(AMateria* m) {
 
 void Character::unequip(int idx) {
     if (idx >= 0 && idx < 4) {
+        if (inventory[idx]) {
+            delete inventory[idx];
+        }
         inventory[idx] = 0;
+    }
+    else {
+        std::cout << "Invalid index for unequip: " << idx << std::endl;
     }
 }
 
 void Character::use(int idx, ICharacter& target) {
     if (idx >= 0 && idx < 4 && inventory[idx]) {
         inventory[idx]->use(target);
+    }
+    else {
+        std::cout << "No materia equipped at index " << idx << std::endl;
     }
 }

@@ -8,6 +8,61 @@
 
 int	main(void)
 {
+
+    // Test 1: MateriaSource learning and creating
+
+    std::cout << "Test 1: MateriaSource learning and creating" << std::endl;
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+    // test du cas ou on essaye d'apprendre une materia alors qu'on en a deja 4
+    Ice icetemp;
+    src->learnMateria(&icetemp);
+
+
+    // Test 2: utiliser et equiper des materias
+    ICharacter* alice = new Character("Alice");
+    AMateria* ice = src->createMateria("ice");
+    AMateria* cure = src->createMateria("cure");
+    alice->equip(ice);
+    alice->equip(cure);
+
+    // Test 3: equiper plus de 4 Materias
+    alice->equip(src->createMateria("ice"));
+    alice->equip(src->createMateria("cure"));
+    alice->equip(&icetemp); // Should not equip
+
+    // Test 4: Use Materias
+    ICharacter* bob = new Character("Bob");
+    for (int i = 0; i < 4; ++i)
+        alice->use(i, *bob);
+
+    // Test 5: Unequip and use
+    alice->unequip(1);
+    alice->use(1, *bob); // Should do nothing
+
+    // Test 6: copie profondee
+    Character* clone = new Character(*(Character*)alice);
+    clone->use(0, *bob);
+
+    // Test 7: operateur d assignation
+    Character assign("Assign");
+    assign = *(Character*)alice;
+    assign.use(0, *bob);
+
+    delete clone;
+    delete bob;
+    delete alice;
+    delete src;
+
+    /*
+
+    utilisation de plusieurs new non necessaires mais 
+    interessant pour mieux comprendre le fonctionnement de la classe
+
+    test du sujet
 	IMateriaSource *src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -24,4 +79,5 @@ int	main(void)
 	delete me;
 	delete src;
 	return (0);
+    */
 }

@@ -40,7 +40,7 @@ Brain *Dog::getBrain() const
 }
 void Dog::setBrain(Brain *newBrain)
 {
-    if (brain != nullptr)
+    if (brain != NULL)
         delete brain;
     brain = newBrain;
 }

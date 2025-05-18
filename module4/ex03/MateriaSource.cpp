@@ -47,6 +47,7 @@ void MateriaSource::learnMateria(AMateria* m) {
             return;
         }
     }
+    std::cout << "MateriaSource: No empty slot available to learn new materia." << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type) {

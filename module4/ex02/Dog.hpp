@@ -12,7 +12,7 @@ class Dog : public Animal
     virtual void makeSound() const;
     virtual ~Dog();
     Brain *getBrain() const ;
-    void setBrain(Brain *newBrain) { brain = newBrain; }
+    void setBrain(Brain *newBrain);
 
   private:
     Brain *brain;
