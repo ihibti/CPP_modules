@@ -38,7 +38,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
         return ;
     }
 
-	// Open file in append mode
+	// Ouvre fichier en mode "append"
 	std::ofstream file((getName() + "_shrubbery").c_str(), std::ios::app);
 	if (!file)
 	{

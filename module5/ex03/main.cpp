@@ -19,14 +19,13 @@ int main() {
         john.executeForm(*shrub);
     }
 
-    // Try to create a non-existent form
+    // tentative de creation d un formulaire non existant
     AForm* invalid = someRandomIntern.makeForm("invalid form", "target");
     if (invalid) {
         john.signForm(*invalid);
         john.executeForm(*invalid);
     }
 
-    // Clean up dynamically allocated memory
     delete rrf;
     delete shrub;
     delete invalid;

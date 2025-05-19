@@ -1,7 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-// Constructor
 AForm::AForm(const std::string &name, int gradeToSign,
 	int gradeToExecute) : _name(name), _isSigned(false),
 	_gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
@@ -12,14 +11,12 @@ AForm::AForm(const std::string &name, int gradeToSign,
 		throw GradeTooLowException();
 }
 
-// Copy constructor
 AForm::AForm(const AForm &other) : _name(other._name),
 	_isSigned(other._isSigned), _gradeToSign(other._gradeToSign),
 	_gradeToExecute(other._gradeToExecute)
 {
 }
 
-// Assignment operator
 AForm &AForm::operator=(const AForm &other)
 {
 	if (this != &other)
@@ -29,12 +26,10 @@ AForm &AForm::operator=(const AForm &other)
 	return (*this);
 }
 
-// Destructor
 AForm::~AForm()
 {
 }
 
-// Getters
 const std::string &AForm::getName() const
 {
 	return (_name);
@@ -55,7 +50,6 @@ int AForm::getGradeToExecute() const
 	return (_gradeToExecute);
 }
 
-// beSigned method
 void AForm::beSigned(const Bureaucrat &bureaucrat)
 {
 	if (bureaucrat.getGrade() > _gradeToSign)
@@ -63,7 +57,6 @@ void AForm::beSigned(const Bureaucrat &bureaucrat)
 	_isSigned = true;
 }
 
-// Check execution requirements
 void AForm::checkExecution(Bureaucrat const &executor) const
 {
 	if (!_isSigned)
@@ -72,7 +65,6 @@ void AForm::checkExecution(Bureaucrat const &executor) const
 		throw GradeTooLowException();
 }
 
-// Exception messages
 const char *AForm::GradeTooHighException::what() const throw()
 {
 	return ("Form grade is too high!");
@@ -88,7 +80,6 @@ const char *AForm::FormNotSignedException::what() const throw()
 	return ("Form is not signed!");
 }
 
-// Overload of << operator
 std::ostream &operator<<(std::ostream &os, const AForm &form)
 {
 	os << "Form " << form.getName() << " (sign: " << form.getGradeToSign();

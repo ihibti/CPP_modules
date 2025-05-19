@@ -1,6 +1,9 @@
 #include "RobotomyRequestForm.hpp"
 #include <cstdlib>  // For rand()
 
+RobotomyRequestForm::RobotomyRequestForm()
+    : AForm("default", 72, 45) {}
+
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
     : AForm(target, 72, 45) {}
 
@@ -17,7 +20,14 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 RobotomyRequestForm::~RobotomyRequestForm() {}
 
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const {
-    checkExecution(executor);
+    try {
+        checkExecution(executor);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return ;
+    }
     std::cout << "* drilling noises *" << std::endl;
     if (std::rand() % 2)
         std::cout << getName() << " has been robotomized successfully." << std::endl;

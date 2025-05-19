@@ -1,18 +1,15 @@
 #include "Intern.hpp"
 #include <iostream>
 
-// Constructor
 Intern::Intern()
 {
 }
 
-// Copy constructor
 Intern::Intern(const Intern &other)
 {
 	*this = other;
 }
 
-// Assignment operator
 Intern &Intern::operator=(const Intern &other)
 {
 	(void)other;
