@@ -28,14 +28,17 @@ int	main(void)
 	}
     try
 	{
+        std::cout << "creation d un bureaucrate trop low" << std::endl;
 		Bureaucrat b3("ismael", -9);
 		std::cout << b3 << std::endl;
+        std::cout << "cette " << std::endl;
 		b3.decrementGrade();
 		std::cout << b3 << std::endl;
 		b3.decrementGrade();
 	}
 	catch (std::exception &e)
 	{
+        std::cout << "test exception" << std::endl;
 		std::cerr << e.what() << std::endl;
 	}
 	return (0);

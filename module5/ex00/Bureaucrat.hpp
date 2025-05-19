@@ -26,6 +26,7 @@ public:
     public:
         virtual const char* what() const throw();
     };
+    
 
 private:
     const std::string _name;
