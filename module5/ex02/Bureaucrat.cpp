@@ -1,7 +1,10 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-// Constructor
+Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
+   // Default constructor
+}
+
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name), _grade(grade) {
     if (grade < 1)
         throw GradeTooHighException();
@@ -9,10 +12,8 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name), _grade
         throw GradeTooLowException();
 }
 
-// Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(other._grade) {}
 
-// Assignment operator
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
     if (this != &other) {
         _grade = other._grade;
@@ -20,7 +21,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
     return *this;
 }
 
-// Destructor
 Bureaucrat::~Bureaucrat() {}
 
 // Getters
@@ -32,7 +32,7 @@ int Bureaucrat::getGrade() const {
     return _grade;
 }
 
-// Increment and decrement grade methods
+
 void Bureaucrat::incrementGrade() {
     if (_grade - 1 < 1)
         throw GradeTooHighException();
@@ -45,7 +45,6 @@ void Bureaucrat::decrementGrade() {
     _grade++;
 }
 
-// Method to sign forms
 void Bureaucrat::signForm(AForm& form) {
     try {
         form.beSigned(*this);
@@ -55,7 +54,6 @@ void Bureaucrat::signForm(AForm& form) {
     }
 }
 
-// New method to execute forms
 void Bureaucrat::executeForm(AForm const & form) const {
     try {
         form.execute(*this);  // Execute the form
@@ -65,7 +63,6 @@ void Bureaucrat::executeForm(AForm const & form) const {
     }
 }
 
-// Exception messages
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
     return "Grade is too high!";
 }
@@ -74,7 +71,6 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade is too low!";
 }
 
-// Overload of << operator
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat) {
     os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
     return os;

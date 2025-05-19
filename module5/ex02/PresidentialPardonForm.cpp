@@ -1,5 +1,8 @@
 #include "PresidentialPardonForm.hpp"
 
+PresidentialPardonForm::PresidentialPardonForm()
+    : AForm("default", 25, 5) {}
+
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
     : AForm(target, 25, 5) {}
 
@@ -16,6 +19,11 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 PresidentialPardonForm::~PresidentialPardonForm() {}
 
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const {
-    checkExecution(executor);
+    try {
+        checkExecution(executor);
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
     std::cout << getName() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }

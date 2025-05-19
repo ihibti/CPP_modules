@@ -13,7 +13,6 @@ int	main(void)
 		john.signForm(formB);
 		bob.signForm(formA);
 		bob.signForm(formB);
-        bob.signForm(formA);
 		std::cout << formA << std::endl;
 		std::cout << formB << std::endl;
 	}

@@ -6,9 +6,9 @@
 
 int main() {
     try {
-        Bureaucrat john("John", 1);  // Highest grade bureaucrat
-        Bureaucrat bob("Bob", 50);   // Mid-grade bureaucrat
-        Bureaucrat alice("Alice", 150);  // Lowest grade bureaucrat
+        Bureaucrat john("John", 1);  //  bureaucrate capable de tout faire
+        Bureaucrat bob("Bob", 50);   // bureaucrate moyen
+        Bureaucrat alice("Alice", 150);  // bureaucrate desastreux
 
         std::cout << john << std::endl;
         std::cout << bob << std::endl;
@@ -17,7 +17,10 @@ int main() {
         ShrubberyCreationForm shrubbery("home");
         std::cout << shrubbery << std::endl;
 
+        // test du shrubbery sans signature
+        john.executeForm(shrubbery);  // John ne peut pas executer
         bob.signForm(shrubbery);
+        //maintenant bob peut executer
         bob.executeForm(shrubbery); 
         bob.executeForm(shrubbery);
          // Bob should be able to execute this
@@ -25,20 +28,22 @@ int main() {
         // Test RobotomyRequestForm
         RobotomyRequestForm robotomy("robot");
         std::cout << robotomy << std::endl;
+    
+        john.signForm(robotomy);  
+        john.executeForm(robotomy);  
+        john.executeForm(robotomy);  
+        john.executeForm(robotomy);  // plusieurs tests pour voir si la reussite est aleatoire
 
-        john.signForm(robotomy);  // Only John can sign RobotomyRequestForm
-        john.executeForm(robotomy);  // John can execute it as well
 
         // Test PresidentialPardonForm
         PresidentialPardonForm pardon("Alice");
         std::cout << pardon << std::endl;
 
         john.signForm(pardon);
-        john.executeForm(pardon);  // John can execute the pardon
+        john.executeForm(pardon);  
 
-        // Test failure due to low grade
-        alice.signForm(shrubbery);  // Alice cannot sign anything
-        alice.executeForm(shrubbery);  // Alice cannot execute anything
+        alice.signForm(shrubbery);  
+        alice.executeForm(shrubbery);  // Alice ne peut rien faire
 
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

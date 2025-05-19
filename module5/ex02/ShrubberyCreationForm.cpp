@@ -1,6 +1,10 @@
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
 
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("default", 145, 137)
+{
+}
+
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm(target,
 	145, 137)
 {
@@ -25,7 +29,14 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	checkExecution(executor);
+    try {
+        checkExecution(executor);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return ;
+    }
 
 	// Open file in append mode
 	std::ofstream file((getName() + "_shrubbery").c_str(), std::ios::app);
@@ -35,13 +46,13 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 		return ;
 	}
 
-	// Append the ASCII tree
+    // pas de jugement sur l arbre
 	file << "       /\\\n";
 	file << "      /  \\\n";
 	file << "     /    \\\n";
 	file << "    /______\\\n";
 	file << "      ||||\n";
 	file << "      ||||\n";
-	file << "\n"; // Add a new line to separate the trees
+	file << "\n"; 
 	file.close();
 }
