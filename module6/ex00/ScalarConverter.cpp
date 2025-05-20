@@ -43,7 +43,7 @@ void ScalarConverter::convert(const std::string &literal)
 		std::cout << "Invalid literal" << std::endl;
 		return ;
 	}
-	// Print each type
+	// resultat final
 	printChar(value);
 	printInt(value);
 	printFloat(value);
