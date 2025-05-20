@@ -1,6 +1,6 @@
 #include "identify.hpp"
 
-// Function to randomly instantiate A, B, or C
+// generer un objet d une classe aleatoire
 Base	*generate(void)
 {
 	std::srand(std::time(0));          // Seed random number generator
@@ -13,7 +13,7 @@ Base	*generate(void)
 		return (new C());
 }
 
-// Function to identify type via pointer
+// Fonction pour identifier avec un pointeur
 void	identify(Base *p)
 {
 	if (dynamic_cast<A *>(p))
@@ -26,10 +26,9 @@ void	identify(Base *p)
 		std::cout << "Unknown type" << std::endl;
 }
 
-// Function to identify type via reference
+// pareil mais avec une reference
 void	identify(Base &p)
 {
-	// Try to convert the reference to a pointer and then use dynamic_cast
 	if (dynamic_cast<A *>(&p))
 		std::cout << "A" << std::endl;
 	else if (dynamic_cast<B *>(&p))
