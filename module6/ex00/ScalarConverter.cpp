@@ -1,6 +1,6 @@
 #include "ScalarConverter.hpp"
 
-// Private constructor to prevent instantiation
+// constructeur prive pour empecher l'instanciation
 ScalarConverter::ScalarConverter()
 {
 }
@@ -11,13 +11,18 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 	return (*this);
 }
 
-// Main convert method
 void ScalarConverter::convert(const std::string &literal)
 {
 	double	value;
 
-	// Try to detect the type of the literal
-	if (isChar(literal))
+	// detection du type
+    if (literal == "inf" || literal == "inff" || literal == "+inff" || literal == "+inf")
+        value  = std::numeric_limits<double>::infinity() ;
+    else if (literal == "-inf" || literal == "-inff")
+        value  = -std::numeric_limits<double>::infinity() ;
+    else if (literal == "nan" || literal == "nanf")
+        value = std::numeric_limits<double>::quiet_NaN();
+	else if (isChar(literal))
 	{
 		value = static_cast<double>(literal[0]);
 	}
@@ -35,7 +40,7 @@ void ScalarConverter::convert(const std::string &literal)
 	}
 	else
 	{
-		std::cerr << "Invalid literal" << std::endl;
+		std::cout << "Invalid literal" << std::endl;
 		return ;
 	}
 	// Print each type
@@ -45,7 +50,6 @@ void ScalarConverter::convert(const std::string &literal)
 	printDouble(value);
 }
 
-// Helper functions to detect types
 bool ScalarConverter::isChar(const std::string &literal)
 {
 	return (literal.length() == 1 && std::isprint(literal[0])
@@ -74,7 +78,6 @@ bool ScalarConverter::isDouble(const std::string &literal)
 		&& literal.find('f') == std::string::npos);
 }
 
-// Helper functions to print each type
 void ScalarConverter::printChar(double value)
 {
 	if (std::isnan(value) || value < std::numeric_limits<char>::min()
