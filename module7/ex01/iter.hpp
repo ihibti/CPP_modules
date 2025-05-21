@@ -1,5 +1,8 @@
 #ifndef ITER_HPP
 #define ITER_HPP
+#include <stdio.h>
+#include<iostream>
+#include<string>
 
 template <typename T, typename Func>
 void iter(T* array, int length, Func func) {
@@ -7,5 +10,13 @@ void iter(T* array, int length, Func func) {
         func(array[i]);
     }
 }
+
+template <typename T>
+void printElement(const T& elem) {
+    std::cout << elem << " ";
+}
+
+
+
 
 #endif
