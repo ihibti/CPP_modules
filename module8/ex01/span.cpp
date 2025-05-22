@@ -24,7 +24,7 @@ int Span::longestSpan() const
         throw(std::out_of_range("less than 2 elements"));
     int smallest = _storage[0];
     int biggest = _storage[0];
-    for (int i = 0;i < _storage.size();i++)
+    for (unsigned long i = 0;i < _storage.size();i++)
     {
         if (_storage[i] > biggest)
             biggest = _storage[i];
@@ -42,7 +42,7 @@ int Span::shortestSpan () const
     std::vector<int> sorted (_storage);
     std::sort(sorted.begin(),sorted.end());
     int shortest = sorted[1] - sorted[0];
-    for (int i = 0;i < sorted.size() - 1;i++ )
+    for (unsigned long i = 0;i < sorted.size() - 1;i++ )
     {
         if (sorted[i+1] - sorted[i] < shortest)
             shortest = sorted[i+1] - sorted[i];

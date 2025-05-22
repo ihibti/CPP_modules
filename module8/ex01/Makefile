@@ -3,7 +3,7 @@ NAME = template_func
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp 
+SRC = main.cpp span.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

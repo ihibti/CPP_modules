@@ -3,6 +3,7 @@
 #include <cstdlib>      
 #include <ctime>        
 #include "span.hpp"
+#include "span.tpp"
 
 int main()
 {
