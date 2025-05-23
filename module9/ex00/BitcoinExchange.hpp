@@ -1,16 +1,20 @@
-#ifndef BITCOIN_EXCHANGE_HPP
-#define BITCOIN_EXCHANGE_HPP
+#ifndef BITCOINEXCHANGE_HPP
+#define BITCOINEXCHANGE_HPP
 
-#include <iostream>   // pour std::cerr, std::endl
-#include <fstream>    // pour std::ifstream
+#include <map>
 #include <string>
-#include<sstream>
-#include<map>
+#include <fstream>
 
+class BitcoinExchange
+{
+private:
+    std::map<std::string, float> _database;
 
-bool isValidDate(const std::string &date);
-std::map<std::string, float> parseDatabase(std::ifstream &file);
+public:
+    BitcoinExchange(std::ifstream &dataFile);
+    float computeRate(const std::string &date, float value) const;
 
-
+    static bool isValidDate(const std::string &date);
+};
 
 #endif

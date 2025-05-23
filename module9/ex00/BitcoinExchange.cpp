@@ -1,10 +1,46 @@
-#include <iostream>   // pour std::cerr, std::endl
-#include <fstream>    // pour std::ifstream
-#include <string>
-#include<sstream>
-#include<map>
+#include "BitcoinExchange.hpp"
+#include <sstream>
+#include <iostream>
+#include <cstdlib>
+#include <cctype>
 
-bool isValidDate(const std::string &date)
+BitcoinExchange::BitcoinExchange(std::ifstream &file)
+{
+    std::string line;
+    std::getline(file, line); // skip header
+
+    while (std::getline(file, line))
+    {
+        size_t sep = line.find(',');
+        if (sep == std::string::npos)
+            continue;
+
+        std::string date = line.substr(0, sep);
+        std::string rateStr = line.substr(sep + 1);
+
+        std::istringstream iss(rateStr);
+        float rate;
+        iss >> rate;
+
+        if (!iss.fail() && iss.eof())
+            _database[date] = rate;
+    }
+}
+
+float BitcoinExchange::computeRate(const std::string &date, float value) const
+{
+    std::map<std::string, float>::const_iterator it = _database.lower_bound(date);
+
+    if (it == _database.begin() && it->first != date)
+        throw std::runtime_error("Error: no earlier data available.");
+
+    if (it == _database.end() || it->first != date)
+        --it;
+
+    return value * it->second;
+}
+
+bool BitcoinExchange::isValidDate(const std::string &date)
 {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
         return false;
@@ -24,8 +60,7 @@ bool isValidDate(const std::string &date)
     if (year < 2009 || month < 1 || month > 12 || day < 1)
         return false;
 
-    int daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
+    int daysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
         daysInMonth[1] = 29;
 
@@ -34,39 +69,3 @@ bool isValidDate(const std::string &date)
 
     return true;
 }
-
-std::map<std::string, float> parseDatabase(std::ifstream &file)
-{
-    std::map<std::string, float> db;
-
-    std::string line;
-    std::getline(file, line); 
-
-    while (std::getline(file, line))
-    {
-        size_t sep = line.find(',');
-        if (sep == std::string::npos)
-        {
-            std::cerr << "Error: bad database entry => " << line << std::endl;
-            continue;
-        }
-
-        std::string date = line.substr(0, sep);
-        std::string rateStr = line.substr(sep + 1);
-
-        std::istringstream iss(rateStr);
-        float rate;
-        iss >> rate;
-
-        if (iss.fail() || !iss.eof())
-        {
-            std::cerr << "Error: bad rate in database => " << rateStr << std::endl;
-            continue;
-        }
-
-        db[date] = rate;
-    }
-
-    return db;
-}
-
