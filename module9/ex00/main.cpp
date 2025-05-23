@@ -18,15 +18,14 @@ int main(int ac, char **av)
         return 1;
     }
 
-    BitcoinExchange btc(dataFile);
-
+    
     std::ifstream inputFile(av[1]);
     if (!inputFile)
     {
         std::cerr << "Error: could not open file: " << av[1] << std::endl;
         return 1;
     }
-
+    BitcoinExchange btc(dataFile);
     std::string line;
     std::getline(inputFile, line); // skip header
 

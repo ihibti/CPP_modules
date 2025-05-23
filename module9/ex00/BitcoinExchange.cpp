@@ -69,3 +69,40 @@ bool BitcoinExchange::isValidDate(const std::string &date)
 
     return true;
 }
+
+
+// tentative de resoudrre le probleme des jours avec un algo plus general mais 
+// en haut c est plus simple
+// s il y vait plus de moois dans l anne j aurias fait ca
+// int monthtoday(int month, int year)
+// {
+//     if (month == 2)
+//     {
+//         if (year % 400 == 0)
+//             return (29);
+//         else if (year % 100)
+//             return (28);
+//         else if (year % 4 == 0)
+//             return (29);
+//         return (28);
+//     }
+//     else if ((month % 2 && month <= 7) || (month % 2 == 0 && month > 7))
+//         return (31);
+//     else
+//         return (30);
+// }
+
+BitcoinExchange::BitcoinExchange(){}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other):_database(other._database){}
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
+{
+    if (this == &other)
+        return *this;
+    _database = other._database;
+    return *this;
+
+}
+BitcoinExchange::~BitcoinExchange(){}
+
+
+
