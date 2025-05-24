@@ -5,8 +5,9 @@ int main(int ac, char **av)
     PmergeMe test;
     try 
     {
-    test.parseArguments(ac,av);
-    test.printBefore();
+        test.parseArguments(ac,av);
+        test.printBefore();
+        test.sortWithVector();
     }
     catch(std::exception &e)
     {

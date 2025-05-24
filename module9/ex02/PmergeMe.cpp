@@ -15,6 +15,40 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 
 PmergeMe::~PmergeMe() {}
 
+static std::vector<int> jacobsthal_suite(int n)
+{
+    std::vector<int> j_suite;
+    j_suite.push_back(0);
+    j_suite.push_back(1);    
+    while(j_suite.back()< n)
+    {
+        j_suite.push_back(j_suite[j_suite.size()-1] + (2 * j_suite[j_suite.size() - 2]));
+    }  
+    return (j_suite);
+}
+
+static void buildJacOrder(int start, int len, const std::vector<int>& J,std::vector<int>& order) 
+{
+    if (len <= 0)
+        return;
+    int k = std::upper_bound(J.begin(), J.end(), len) - J.begin() - 1;
+    int pivot = J[k];
+    if (pivot>= len)
+        return;
+    order.push_back(start + pivot);
+    buildJacOrder(start, pivot, J, order);
+    buildJacOrder(start + pivot + 1, len - pivot - 1, J, order);
+}
+
+// Fonction publique à appeler pour obtenir l’ordre d’insertion
+std::vector<int> generateInsertionOrder(int n) {
+    std::vector<int> J = jacobsthal_suite(n);      // Génère la suite de Jacobsthal
+    std::vector<int> order;                      // Stocke l’ordre final
+    buildJacOrder(0, n, J, order);               // Remplit l’ordre
+    return order;
+}
+
+
 void PmergeMe::parseArguments(int ac, char **av)
 {
     if (ac < 2)
@@ -71,7 +105,7 @@ void PmergeMe::sortWithVector()
     std::vector<int> pending_chain;
     int vagabond;
     bool has_vagabond = false;
-    for (size_t i = 0; i < _vec.size() + 1; i += 2)
+    for (size_t i = 0; i < _vec.size() - 1; i += 2)
     {
         int first = _vec[i];
         int second = _vec[i+1];
@@ -91,7 +125,40 @@ void PmergeMe::sortWithVector()
         vagabond = _vec.back();
         has_vagabond = true;
     }
+
+    std::sort(main_chain.begin(),main_chain.end());
+
+    std::vector<int> insertOrder = generateInsertionOrder(pending_chain.size());
+    std::cout << "Insertion order: ";
+    std::cout << "size" << pending_chain.size();
+    for (size_t i = 0; i < insertOrder.size(); ++i)
+        std::cout << insertOrder[i] << " ";
+    std::cout << std::endl;
+    for (size_t i = 0; i < insertOrder.size(); ++i) {
+        int idx = insertOrder[i];
+        int value = pending_chain[idx];
+
+        std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), value);
+        main_chain.insert(pos, value);
+    }
+
+    // Étape 6 : insertion du vagabond
+    if (has_vagabond) {
+        std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), vagabond);
+        main_chain.insert(pos, vagabond);
+    }
+
+    // Étape 7 : affichage du résultat
+    std::cout << "After: ";
+    for (size_t i = 0; i < main_chain.size(); ++i) {
+        std::cout << main_chain[i];
+        if (i < main_chain.size() -1)
+            std::cout << " ";
+    }
+    std::cout << std::endl;
 }
+
+
 
 
 
