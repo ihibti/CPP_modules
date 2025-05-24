@@ -4,6 +4,16 @@ Span::Span(unsigned int size) : _maxSize(size){}
 
 Span::Span():_maxSize(10){}
 
+Span& Span::operator=(const Span& other)
+{
+    if (this == &other)
+        return(*this);
+    _maxSize = other._maxSize;
+    _storage = other._storage;
+    return(*this);
+}
+
+
 Span::Span(const Span &other):_maxSize(other._maxSize)
 {
     _storage = other._storage;
