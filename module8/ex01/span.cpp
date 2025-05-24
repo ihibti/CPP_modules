@@ -61,6 +61,15 @@ int Span::shortestSpan () const
 }
 
 
+void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+    if (_storage.size() + std::distance(begin,end) > _maxSize)
+        throw std::out_of_range("not ebough space in span");
+    for (std::vector<int>::iterator current = begin;current != end;++current)
+        addNumber(*current);
+}
+
+
 
 
 

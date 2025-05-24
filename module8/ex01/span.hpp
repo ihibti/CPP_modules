@@ -14,7 +14,7 @@ public:
     
     Span& operator=(const Span& other);
     void addNumber(int number);
-    template <typename It> void addNumber(It, It);
+    void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
     int shortestSpan() const;
     int longestSpan() const;
     ~Span();
