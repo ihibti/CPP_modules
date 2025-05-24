@@ -69,25 +69,25 @@ int RPN::applyOperator(const std::string &op, int a, int b) const
 // }
 
 
-int RPN::evaluate(const std::string &expression)
-{
-    std::istringstream iss(expression);
-    std::string token;
+// int RPN::evaluate(const std::string &expression)
+// {
+//     std::istringstream iss(expression);
+//     std::string token;
 
-    if (iss.fail() || !iss.eof())
-    {
-        std::cerr << "erreur !" << std::endl ;
-        throw (std::exception());
-    }
-    while(iss >> token)
-    {
-        if (this->isOperator(token) && this->_stack.size() < 2)
-        {
-            std::cerr << "not enough operands" << std::endl;
-            throw std::exception();
-        }
-        if (std::isdigit(token[0]))
+//     if (iss.fail() || !iss.eof())
+//     {
+//         std::cerr << "erreur !" << std::endl ;
+//         throw (std::exception());
+//     }
+//     while(iss >> token)
+//     {
+//         if (this->isOperator(token) && this->_stack.size() < 2)
+//         {
+//             std::cerr << "not enough operands" << std::endl;
+//             throw std::exception();
+//         }
+//         if (std::isdigit(token[0]))
         
-    }
+//     }
 
-}
+// }

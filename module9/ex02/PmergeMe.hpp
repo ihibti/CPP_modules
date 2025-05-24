@@ -24,10 +24,12 @@ public:
 
     void parseArguments(int argc, char** argv);
     void printBefore() const;
+    void sortWithVector();
+    void sortWithDequeue();    
 
     // Accès aux containers pour les étapes suivantes
-    const std::vector<int>& getVector() const;
-    const std::deque<int>& getDeque() const;
+    // const std::vector<int>& getVector() const;
+    // const std::deque<int>& getDeque() const;
 };
 
 #endif
