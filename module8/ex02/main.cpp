@@ -34,6 +34,7 @@ int main()
 
     std::stack<int> s(mstack); // Vérifie la compatibilité avec std::stack
 
+
     std::cout << "\n--- Test équivalent avec std::list ---" << std::endl;
     std::list<int> lstack;
     lstack.push_back(5);
