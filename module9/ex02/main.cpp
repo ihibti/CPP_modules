@@ -8,6 +8,8 @@ int main(int ac, char **av)
         test.parseArguments(ac,av);
         test.printBefore();
         test.sortWithVector();
+        test.sortWithDequeue();
+        test.print_end();
     }
     catch(std::exception &e)
     {

@@ -105,6 +105,7 @@ void PmergeMe::printBefore() const
 
 void PmergeMe::sortWithVector()
 {
+    clock_t begin = clock();
     std::vector<int> main_chain;
     std::vector<int> pending_chain;
     int vagabond;
@@ -133,9 +134,6 @@ void PmergeMe::sortWithVector()
     std::sort(main_chain.begin(),main_chain.end());
 
     std::vector<int> insertOrder = generateInsertionOrder(pending_chain.size());
-    for (size_t i = 0; i < insertOrder.size(); ++i)
-        std::cout << insertOrder[i] << " ";
-    std::cout << std::endl;
     for (size_t i = 0; i < insertOrder.size(); ++i) {
         int idx = insertOrder[i];
         int value = pending_chain[idx];
@@ -149,15 +147,9 @@ void PmergeMe::sortWithVector()
         std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), vagabond);
         main_chain.insert(pos, vagabond);
     }
-
-    // Étape 7 : affichage du résultat
-    std::cout << "After: ";
-    for (size_t i = 0; i < main_chain.size(); ++i) {
-        std::cout << main_chain[i];
-        if (i < main_chain.size() -1)
-            std::cout << " ";
-    }
-    std::cout << std::endl;
+    _vec = main_chain;
+    clock_t end = clock();
+    this->_veqtime = static_cast<long>(end-begin);
 }
 
 // ____________________________________________________________
@@ -165,14 +157,49 @@ void PmergeMe::sortWithVector()
 
 
 // pareil mais adapte a dequeue
+static std::deque<int> deq_jacobsthal_suite(int n)
+{
+    std::deque<int> j_suite;
+    j_suite.push_back(0);
+    j_suite.push_back(1);
+    while(j_suite.back()< n)
+    {
+        j_suite.push_back(j_suite[j_suite.size()-1] + (2 * j_suite[j_suite.size() - 2]));
+    }  
+    return (j_suite);
+}
+
+static void deq_buildJacOrder(int start, int len, const std::deque<int>& J, std::deque<int>& order)
+{
+    if (len <= 0)
+        return;
+    int k = 0;
+    while (k + 1 < static_cast<int>(J.size()) && J[k + 1] < len)
+        ++k;
+    int pivot = J[k];
+    if (pivot >= len)
+        return;
+    order.push_back(start + pivot);
+    deq_buildJacOrder(start, pivot, J, order);
+    deq_buildJacOrder(start + pivot + 1, len - pivot - 1, J, order);
+}
+
+
+std::deque<int> deq_generateInsertionOrder(int n)
+{
+    std::deque<int> J = deq_jacobsthal_suite(n);
+    std::deque<int> order;
+    deq_buildJacOrder(0, n, J, order);
+    return order;
+}
 
 void PmergeMe::sortWithDequeue()
 {
+    clock_t begin = clock();
     std::deque<int> main_chain;
     std::deque<int> pending_chain;
     int straggler = -1;
     bool has_straggler = false;
-
     // Étape 1 : Formation des paires
     for (size_t i = 0; i + 1 < _deq.size(); i += 2)
     {
@@ -201,7 +228,7 @@ void PmergeMe::sortWithDequeue()
     std::sort(main_chain.begin(), main_chain.end());
 
     // Étape 4 : génération de l’ordre d’insertion
-    std::vector<int> insertionOrder = generateInsertionOrder(pending_chain.size());
+    std::deque<int> insertionOrder = deq_generateInsertionOrder(pending_chain.size());
 
     // Étape 5 : insertion dans main_chain
     for (size_t i = 0; i < insertionOrder.size(); ++i)
@@ -219,15 +246,33 @@ void PmergeMe::sortWithDequeue()
         std::deque<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), straggler);
         main_chain.insert(pos, straggler);
     }
+    _deq = main_chain;
+    clock_t end = clock();
+    _deqtime = static_cast<long>(end - begin);
+}
 
-    // Étape 7 : affichage
-    std::cout << "After (deque): ";
-    for (size_t i = 0; i < main_chain.size(); ++i)
-    {
-        std::cout << main_chain[i];
-        if (i < main_chain.size() - 1)
-            std::cout << " ";
-    }
+
+void PmergeMe::printafter(const std::vector<int> &vec)
+{
+    std::cout << "After:";
+    for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
+        std::cout << " " << *it;
     std::cout << std::endl;
 }
 
+void PmergeMe::printafter(const std::deque<int> &deq)
+{
+    std::cout << "After:";
+    for (std::deque<int>::const_iterator it = deq.begin(); it != deq.end(); ++it)
+        std::cout << " " << *it;
+    std::cout << std::endl;
+}
+
+void PmergeMe::print_end()
+{
+    printafter(_vec);
+    std::cout << "Time to process a range of  "<< _deq.size() << " with std::dequeue : " 
+    << _deqtime << "  us" << std::endl;
+    std::cout << "Time to process a range of  "<< _vec.size() << " with std::vector : " 
+    << _veqtime << "  us" << std::endl;
+}
